@@ -1,18 +1,18 @@
-package com.example.demo.dao;
+package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.entity.Client;
 
-public interface ClientDAO {
+public interface ClientService {
 
 	List<Client> findAll();
 
 	void save(Client client);
-	
-	void delete(Integer id);
-	
-	Optional<Client> getById(Integer id);
+
+	void deleteById(Integer id);
+
+	Optional<Client> findById(Integer id);
 
 }
