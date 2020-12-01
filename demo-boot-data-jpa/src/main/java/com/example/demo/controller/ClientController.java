@@ -40,7 +40,8 @@ public class ClientController {
 
 	@GetMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
-		Client client = clientService.findById(id).orElseThrow();
+		//Client client = clientService.findById(id).orElseThrow();
+		Client client = clientService.findById(id).get();
 		model.addAttribute("client", client);
 		return "form";
 	}

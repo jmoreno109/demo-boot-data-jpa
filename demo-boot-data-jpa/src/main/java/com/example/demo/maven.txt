@@ -1,0 +1,12 @@
+
+# maven wrapper
+mvnw.cmd clean
+
+# run app
+mvnw.cmd spring-boot:run
+
+# no test
+$ mvn package -Dmaven.test.skip=true
+
+# Run a single test class
+$ mvn -Dtest=TestApp1 test

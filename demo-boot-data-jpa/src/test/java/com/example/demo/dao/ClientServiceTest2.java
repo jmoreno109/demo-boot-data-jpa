@@ -1,5 +1,5 @@
 package com.example.demo.dao;
-
+/*
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -30,3 +30,4 @@ public class ClientServiceTest2 {
 	}
 
 }
+*/

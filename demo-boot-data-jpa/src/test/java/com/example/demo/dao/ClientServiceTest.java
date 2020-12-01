@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import com.example.demo.model.entity.Client;
 import com.example.demo.service.ClientService;
+
 
 public class ClientServiceTest {
 
@@ -50,3 +52,4 @@ public class ClientServiceTest {
 	}
 
 }
+*/
