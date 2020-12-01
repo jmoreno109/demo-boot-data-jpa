@@ -47,6 +47,9 @@ public class Client implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtCreation;
+	
+	@Column(name = "photo")
+	private String photo;
 
 	@PrePersist
 	public void prePersist() {
@@ -97,6 +100,14 @@ public class Client implements Serializable {
 
 	public void setDtCreation(Date dtCreation) {
 		this.dtCreation = dtCreation;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }
