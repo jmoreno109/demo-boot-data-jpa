@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.model.entity.Client;
+import com.example.demo.model.entity.Product;
 import com.example.demo.service.ClientService;
 
 @Controller
@@ -68,11 +71,11 @@ public class ClientController {
 		}
 
 		if (!file.isEmpty()) {
-			
-			//Path path = Paths.get("src//main//resources//static/upload");
-			//String rootPath = path.toFile().getAbsolutePath();
+
+			// Path path = Paths.get("src//main//resources//static/upload");
+			// String rootPath = path.toFile().getAbsolutePath();
 			String rootPath = "C://temp//upload"; // local directory
-			
+
 			Path pathAbs = Paths.get(rootPath + "//" + file.getOriginalFilename());
 			try {
 				Files.write(pathAbs, file.getBytes());
@@ -99,6 +102,12 @@ public class ClientController {
 		model.addAttribute("client", client);
 
 		return "show";
+	}
+
+	@GetMapping(value = "/load-products/{term}", produces = { "application/json" })
+	public @ResponseBody List<Product> loadProduct(@PathVariable String term) {
+		logger.info("entro******************************");
+		return clientService.findByName(term);
 	}
 
 }

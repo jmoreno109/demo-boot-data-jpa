@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.entity.Client;
+import com.example.demo.model.entity.Product;
 
 public interface ClientService {
 
@@ -14,5 +15,7 @@ public interface ClientService {
 	void deleteById(Integer id);
 
 	Optional<Client> findById(Integer id);
+	
+	List<Product> findByName(String term);
 
 }
