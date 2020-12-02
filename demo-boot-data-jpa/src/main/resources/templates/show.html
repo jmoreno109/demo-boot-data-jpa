@@ -38,39 +38,8 @@
 	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
 
 	<div class="container">
-
-		<h3 class="text-primary">Clients</h3>
-
-		<a th:href="@{/create}">Create</a>
-
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Creation Date</th>
-					<th>Action</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="client: ${clients}">
-					<td><a th:href="@{/show/}+${client.id}"
-						th:text="${client.id}"></a></td>
-					<td th:text="${client.name}"></td>
-					<td th:text="${client.lastName}"></td>
-					<td th:text="${client.email}"></td>
-					<td th:text="${client.dtCreation}"></td>
-					<td><a class="btn btn-primary btn-xs"
-						th:href="@{/edit/}+${client.id}" th:text="'Edit'"></a></td>
-					<td><a class="btn btn-danger btn-xs"
-						th:href="@{/delete/}+${client.id}" th:text="'Delete'"></a></td>
-				</tr>
-			</tbody>
-		</table>
-
+		<h3 class="text-primary">Show Photo</h3>
+		<img th:if="${#strings.length(client.photo)}" th:src="@{'/upload/' + ${client.photo}}"> 
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -68,8 +68,11 @@ public class ClientController {
 		}
 
 		if (!file.isEmpty()) {
-			Path path = Paths.get("src//main//resources//static/upload");
-			String rootPath = path.toFile().getAbsolutePath();
+			
+			//Path path = Paths.get("src//main//resources//static/upload");
+			//String rootPath = path.toFile().getAbsolutePath();
+			String rootPath = "C://temp//upload"; // local directory
+			
 			Path pathAbs = Paths.get(rootPath + "//" + file.getOriginalFilename());
 			try {
 				Files.write(pathAbs, file.getBytes());
@@ -82,6 +85,20 @@ public class ClientController {
 
 		clientService.save(client);
 		return "redirect:/list";
+	}
+
+	@GetMapping("/show/{id}")
+	public String show(@PathVariable Integer id, Model model, RedirectAttributes flash) {
+
+		Client client = clientService.findById(id).get();
+		if (client == null) {
+			flash.addFlashAttribute("error", "Cliente no encontrado");
+			return "redirect:/list";
+		}
+
+		model.addAttribute("client", client);
+
+		return "show";
 	}
 
 }
