@@ -3,39 +3,55 @@
 
 <body>
 	<script type="text/javascript" th:fragment="javascript">
-	
-	$(document).ready(function(){
-		
-		$("#find_product2").autocomplete({
-			
-			source: function (request,response){
-				$.ajax({
-					url: "/load-products/" + request.term,
-					dataType:"json",
-					data: {
-						term:request.term
-					},
-					success: function(data){
-						response($.map(data,function(item){
-							return {
-								value: item.id,
-								label: item.name,
-							};
-						}));
-					},
-				});
-			},
-			
-			select: function (event, ui){
-				$("#find_product2").val(ui.item.label);
-				return false;
-			}
-			
+		$(document).ready(function() {
+
+			$("#find_product2").autocomplete({
+
+				source : function(request, response) {
+					$.ajax({
+						url : "/load-products/" + request.term,
+						dataType : "json",
+						data : {
+							term : request.term
+						},
+						success : function(data) {
+							response($.map(data, function(item) {
+								return {
+									value : item.id,
+									label : item.name,
+								};
+							}));
+						},
+					});
+				},
+
+				select : function(event, ui) {
+					$("#find_product2").val(ui.item.label);
+
+					itemHelper.calcularImporte();
+
+					return false;
+				}
+
+			});
+
 		});
-		
-	});
-	
+
+		$("#total_importe").val(parseInt(45));
+
+		var itemHelper = {
+			calcularImporte : function() {
+				$("#total_importe").val(parseInt(50));
+			},
+			calcularImporteMult : function() {
+				$("#total_importe").val(parseInt(50)*2);
+			},
+			calcularImporteMult2 : function(val) {
+				console.log('your message: '+val);
+				$("#total_importe").val(val*2);
+			}
+		}
 	</script>
-	
+
 </body>
 </html>

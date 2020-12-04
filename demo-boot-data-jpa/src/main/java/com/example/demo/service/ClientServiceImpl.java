@@ -50,5 +50,6 @@ public class ClientServiceImpl implements ClientService {
 	public List<Product> findByName(String term) {
 		return productRepository.findByName(term);
 	}
+	
 
 }

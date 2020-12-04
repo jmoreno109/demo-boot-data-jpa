@@ -106,12 +106,14 @@ public class Invoice implements Serializable {
 		this.invoiceItemList = invoiceItemList;
 	}
 
+	public void addInvoiceItemList(InvoiceItem invoiceItem) {
+		this.invoiceItemList.add(invoiceItem);
+	}
+
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", description=" + description + ", observation=" + observation + ", dtCreation="
 				+ dtCreation + "]";
 	}
-	
-	
 
 }

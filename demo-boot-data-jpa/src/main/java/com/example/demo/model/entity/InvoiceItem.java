@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "invoice_item")
 public class InvoiceItem implements Serializable {
@@ -42,5 +41,18 @@ public class InvoiceItem implements Serializable {
 		this.quantity = quantity;
 	}
 
-}
+	public Product getProduct() {
+		return product;
+	}
 
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "InvoiceItem [id=" + id + ", quantity=" + quantity + "]";
+	}
+	
+
+}

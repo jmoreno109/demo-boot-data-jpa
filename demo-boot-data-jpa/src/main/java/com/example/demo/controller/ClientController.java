@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,14 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.model.entity.Client;
+import com.example.demo.model.entity.Invoice;
+import com.example.demo.model.entity.InvoiceItem;
 import com.example.demo.model.entity.Product;
 import com.example.demo.service.ClientService;
+import com.example.demo.service.InvoiceService;
+import com.example.demo.service.ProductService;
 
 @Controller
+//@Secured("ADMIN")
 public class ClientController {
 
 	Logger logger = LoggerFactory.getLogger(ClientController.class);
@@ -36,6 +43,13 @@ public class ClientController {
 	@Autowired
 	ClientService clientService;
 
+	@Autowired
+	InvoiceService invoiceService;
+
+	@Autowired
+	ProductService productService;
+
+	@Secured({ "ADMIN", "USER" })
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("clients", clientService.findAll());
@@ -104,10 +118,38 @@ public class ClientController {
 		return "show";
 	}
 
+	// produces = MediaType.TEXT_PLAIN_VALUE
 	@GetMapping(value = "/load-products/{term}", produces = { "application/json" })
 	public @ResponseBody List<Product> loadProduct(@PathVariable String term) {
-		logger.info("entro******************************");
+		logger.info("***entro***");
 		return clientService.findByName(term);
+	}
+
+	@GetMapping(value = "/save-invoice/{id}")
+	@ResponseBody
+	public void saveInvoice(@PathVariable Integer id, SessionStatus status) {
+
+		Client client = clientService.findById(id).get();
+		Product product = productService.findById(1L);
+
+		InvoiceItem invoiceItem = new InvoiceItem();
+		invoiceItem.setQuantity(45);
+		invoiceItem.setProduct(product);
+
+		Invoice invoice = new Invoice();
+		invoice.setClient(client);
+		invoice.addInvoiceItemList(invoiceItem);
+		invoice.setDescription("test_desc");
+		invoice.setObservation("test_obs");
+
+		invoiceService.save(invoice);
+		status.setComplete();
+	}
+
+	@GetMapping(value = "/delete-client/{id}")
+	@ResponseBody
+	public void deleteClient(@PathVariable Integer id) {
+		clientService.deleteById(id);
 	}
 
 }

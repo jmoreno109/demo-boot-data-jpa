@@ -63,9 +63,18 @@
 			</div>
 
 			<div class="form-group">
+				<label>Search Number</label>
+				<div>
+					<input type="number"
+						onchange="itemHelper.calcularImporteMult2(this.value)">
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label>Search</label>
 				<div>
-					<input type="text" name="find_product" id="find_product">
+					<input type="text" name="find_product" id="find_product"
+						onchange="itemHelper.calcularImporteMult()">
 				</div>
 			</div>
 
@@ -73,6 +82,13 @@
 				<label>Search2</label>
 				<div>
 					<input type="text" name="find_product2" id="find_product2">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Item Helper</label>
+				<div>
+					<input type="text" name="total_importe" id="total_importe">
 				</div>
 			</div>
 

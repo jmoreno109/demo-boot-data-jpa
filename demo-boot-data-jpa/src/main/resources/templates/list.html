@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -24,8 +25,29 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/list}">Clients</a>
 				</li>
-
 			</ul>
+
+			<ul class="navbar-nav navbar-right">
+				<li sec:authorize="!isAuthenticated()"><a
+					class="btn btn-outline-primary" th:href="@{/login}">Sing In</a></li>
+
+				<li sec:authorize="isAuthenticated()" class="dropdown">
+					<button class="btn btn-outline-primary dropdown-toggle"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<span sec:authentication="name"></span>
+					</button>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<form th:action="@{/logout}" method="post" id="logoutform">
+							<button class="dropdown-item"
+								onclick="document.getElementById('logoutform').submit();"
+								type="submit">Sign Out</button>
+						</form>
+					</div>
+				</li>
+			</ul>
+
 		</div>
 	</nav>
 
@@ -41,7 +63,7 @@
 
 		<h3 class="text-primary">Clients</h3>
 
-		<a th:href="@{/create}">Create</a>
+		<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/create}">Create</a>
 
 		<table class="table table-striped table-bordered">
 			<thead>
@@ -57,8 +79,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="client: ${clients}">
-					<td><a th:href="@{/show/}+${client.id}"
-						th:text="${client.id}"></a></td>
+					<td><a th:href="@{/show/}+${client.id}" th:text="${client.id}"></a></td>
 					<td th:text="${client.name}"></td>
 					<td th:text="${client.lastName}"></td>
 					<td th:text="${client.email}"></td>
@@ -70,6 +91,11 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<p sec:authorize="isAuthenticated()">
+			User: <span sec:authentication="name"></span> | Roles: <span
+				sec:authentication="principal.authorities"></span>
+		</p>
 
 	</div>
 

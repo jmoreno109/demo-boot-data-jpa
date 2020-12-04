@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<div class="alert alert-success" th:if="${success != null}"
+		th:text="${success}"></div>
+	<div class="alert alert-danger" th:if="${error != null}"
+		th:text="${error}"></div>
+	<div class="alert alert-warning" th:if="${warning != null}"
+		th:text="${warning}"></div>
+	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+
+	<div class="container">
+		<div class="card border-primary text-center">
+			<div class="card-header">Sign In</div>
+			<div class="card-body">
+				<form th:action="@{/login}" method="post">
+					<div>
+						<label><b>Name</b></label>
+						<div>
+							<input type="text" placeholder="Enter Username" name="username"
+								id="username" required>
+						</div>
+					</div>
+					<div>
+						<label><b>Password</b></label>
+						<div>
+							<input type="password" placeholder="Enter Password"
+								name="password" id="password" required>
+						</div>
+					</div>
+					<div>
+						<label><b>Submit</b></label>
+						<div>
+							<button type="submit">Login</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

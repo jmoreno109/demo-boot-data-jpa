@@ -2,8 +2,6 @@ package com.example.demo.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -14,34 +12,26 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.example.demo.model.entity.Product;
+import com.example.demo.model.entity.Invoice;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-public class ProductRepositoryTest {
+public class InvoiceRepositoryTest {
 
 	Logger logger = LoggerFactory.getLogger(ClientRepositoryTest.class);
 
 	@Autowired
-	private ProductRepository productRepository;
+	InvoiceRepository invoiceRepository;
 
 	@Test
-	void should_findByName() {
-		List<Product> productList = productRepository.findByName("pa");
-		assertThat(productList).isNotEmpty();
-	}
-
-	@Test
-	void should_findByNameLikeIgnoreCase() {
-		List<Product> productList = productRepository.findByNameLikeIgnoreCase("%pa%");
-		assertThat(productList).isNotEmpty();
-	}
-
-	@Test
-	void should_findByNameContainingIgnoreCase() {
-		List<Product> productList = productRepository.findByNameContainingIgnoreCase("pa");
-		assertThat(productList).isNotEmpty();
+	public void should_fetchById() {
+		Invoice invoice = invoiceRepository.fetchById(1L);
+		assertThat(invoice).isNotNull();
+		
+		logger.info("*************************************");
+		invoice.getInvoiceItemList().forEach(x -> logger.info(x.toString()));
+		logger.info("*************************************");
 	}
 
 }
