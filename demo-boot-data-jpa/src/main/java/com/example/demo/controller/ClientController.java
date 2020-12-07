@@ -49,13 +49,14 @@ public class ClientController {
 	@Autowired
 	ProductService productService;
 
-	@Secured({ "ADMIN", "USER" })
+	@Secured({ "ROLE_USER" })
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("clients", clientService.findAll());
 		return "list";
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/create")
 	public String create(Model model) {
 		Client client = new Client();
@@ -63,6 +64,7 @@ public class ClientController {
 		return "form";
 	}
 
+	@Secured({ "ROLE_USER" })
 	@GetMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
 		// Client client = clientService.findById(id).orElseThrow();
@@ -71,6 +73,7 @@ public class ClientController {
 		return "form";
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
 		clientService.deleteById(id);
