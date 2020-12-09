@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.auth.filter.JWTAuthenticationFilter;
+import com.example.demo.auth.filter.JWTAuthorizationFilter;
+import com.example.demo.auth.service.JWTService;
 import com.example.demo.service.JpaUserDetailsService;
 
 @Configuration
@@ -25,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	JpaUserDetailsService jpaUserDetailsService;
+	
+	@Autowired
+	private JWTService jwtService;
 
 	@Override
 	@Autowired
@@ -77,7 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/","/css/**","/js/**","/images/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
-		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtService))
+		.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtService))
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

@@ -13,12 +13,13 @@ import com.example.demo.model.entity.Client;
 @RestController
 @RequestMapping("api/clients")
 public class ClientRestController {
-	
+
 	@Autowired
 	ClientRepository clientRepository;
-	
+
 	@GetMapping("/list")
-	public List<Client> list(){
+	//@Secured("ROLE_ADMIN")
+	public List<Client> list() {
 		return (List<Client>) clientRepository.findAll();
 	}
 
