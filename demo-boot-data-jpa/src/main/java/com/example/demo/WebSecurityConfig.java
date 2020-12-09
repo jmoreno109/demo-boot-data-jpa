@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// With JWT
 		
 		http.authorizeRequests()
-		.antMatchers("/","/css/**","/js/**","/images/**").permitAll()
+		.antMatchers("/","/css/**","/js/**","/images/**","/api/clients/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtService))

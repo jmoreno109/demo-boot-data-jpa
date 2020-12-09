@@ -9,6 +9,7 @@
 
 				source : function(request, response) {
 					$.ajax({
+						// url -> set deploy name for tomcat
 						url : "/load-products/" + request.term,
 						dataType : "json",
 						data : {

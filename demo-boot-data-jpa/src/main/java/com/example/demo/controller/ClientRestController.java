@@ -11,7 +11,7 @@ import com.example.demo.dao.ClientRepository;
 import com.example.demo.model.entity.Client;
 
 @RestController
-@RequestMapping("api/clients")
+@RequestMapping("/api/clients")
 public class ClientRestController {
 
 	@Autowired
